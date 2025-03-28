@@ -1,9 +1,21 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
+import config from "@/config/app.config";
 
-export async function setupDatabase(url: string) {
+export function getDatabaseUrl() {
+  switch (config.NODE_ENV) {
+    case "production":
+      return config.DATABASE_URL_PROD;
+    case "test":
+      return config.DATABASE_URL_TEST;
+    default:
+      return config.DATABASE_URL_DEV;
+  }
+}
+
+export async function setupDatabase() {
   const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: getDatabaseUrl(),
   });
   const db = drizzle({ client: pool });
   return db;

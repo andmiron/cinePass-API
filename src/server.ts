@@ -6,7 +6,7 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
-import { Config } from "./config/config";
+import { Config } from "./config/app.config";
 import { DB } from "./db";
 
 declare module "fastify" {

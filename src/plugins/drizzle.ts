@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyPluginAsync } from "fastify";
 import { setupDatabase } from "@/db";
 
 const drizzlePlugin: FastifyPluginAsync = async (app: FastifyInstance) => {
-  const db = await setupDatabase(app.config.DATABASE_URL);
+  const db = await setupDatabase();
   app.decorate("db", db);
 
   app.addHook("onClose", async (app) => {

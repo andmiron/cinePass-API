@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import config from "@/config/config";
+import config from "@/config/app.config";
 import build from "@/server";
 
 async function main() {

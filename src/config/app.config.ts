@@ -7,7 +7,9 @@ const configSchema = z.object({
     .default("development"),
   PORT: z.string().default("3000").transform(Number),
   HOST: z.string().default("0.0.0.0"),
-  DATABASE_URL: z.string().url(),
+  DATABASE_URL_DEV: z.string().url(),
+  DATABASE_URL_TEST: z.string().url(),
+  DATABASE_URL_PROD: z.string().url(),
 });
 
 const config = configSchema.parse(process.env);

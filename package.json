@@ -1,9 +1,14 @@
 {
   "scripts": {
     "dev": "tsx watch src/main.ts",
+    "build:pre": "prettier --write . && eslint src --fix",
     "build": "tsc",
     "start:dev": "npm run build && node dist/main.js",
-    "start": "rimraf dist && npm run build && node dist/main.js"
+    "start": "rimraf dist && npm run build && node dist/main.js",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
     "@fastify/autoload": "^6.2.0",
@@ -14,6 +19,7 @@
     "argon2": "^0.41.1",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.41.0",
+    "drizzle-zod": "^0.7.0",
     "fastify": "^5.2.2",
     "fastify-type-provider-zod": "^4.0.2",
     "pg": "^8.14.1",
