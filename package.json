@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "tsx watch src/main.ts",
+    "dev": "tsx watch src/main.ts --ignore src/tests",
     "build:pre": "prettier --write . && eslint src --fix",
     "build": "tsc",
     "start:dev": "npm run build && node dist/main.js",
@@ -8,11 +8,15 @@
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "@fastify/autoload": "^6.2.0",
-    "@fastify/passport": "^3.0.2",
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/jwt": "^9.1.0",
     "@fastify/sensible": "^6.0.3",
     "@fastify/swagger": "^9.4.2",
     "@fastify/swagger-ui": "^5.2.2",
@@ -37,6 +41,7 @@
     "prettier": "^3.5.3",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
-    "typescript-eslint": "^8.28.0"
+    "typescript-eslint": "^8.28.0",
+    "vitest": "^3.0.9"
   }
 }

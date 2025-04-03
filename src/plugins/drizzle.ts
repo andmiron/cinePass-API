@@ -10,6 +10,7 @@ const drizzlePlugin: FastifyPluginAsync = async (app: FastifyInstance) => {
   });
 
   try {
+    await app.after();
     await app.db.execute(`SELECT 1`);
     app.log.info("Drizzle database plugin loaded");
   } catch (error) {

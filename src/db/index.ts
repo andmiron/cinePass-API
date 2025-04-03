@@ -1,8 +1,8 @@
+import config from "@/config/app.config";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import config from "@/config/app.config";
 
-export function getDatabaseUrl() {
+export const getDatabaseUrl = () => {
   switch (config.NODE_ENV) {
     case "production":
       return config.DATABASE_URL_PROD;
@@ -11,7 +11,7 @@ export function getDatabaseUrl() {
     default:
       return config.DATABASE_URL_DEV;
   }
-}
+};
 
 export async function setupDatabase() {
   const pool = new Pool({

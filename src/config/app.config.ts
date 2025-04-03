@@ -10,6 +10,8 @@ const configSchema = z.object({
   DATABASE_URL_DEV: z.string().url(),
   DATABASE_URL_TEST: z.string().url(),
   DATABASE_URL_PROD: z.string().url(),
+  JWT_SECRET: z.string(),
+  COOKIE_SECRET: z.string(),
 });
 
 const config = configSchema.parse(process.env);

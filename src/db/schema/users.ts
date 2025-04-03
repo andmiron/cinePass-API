@@ -15,6 +15,8 @@ export const users = pgTable("users", {
     .defaultNow(),
 });
 
+export type User = typeof users.$inferSelect;
+
 export const usersRelations = relations(users, ({ many }) => ({
   reservations: many(reservations),
 }));

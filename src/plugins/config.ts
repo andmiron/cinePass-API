@@ -1,7 +1,7 @@
-import config, { Config } from "@/config/app.config";
+import config from "@/config/app.config";
 import { FastifyInstance, FastifyPluginAsync } from "fastify";
 
-const configPlugin: FastifyPluginAsync = async (app) => {
+const configPlugin: FastifyPluginAsync = async (app: FastifyInstance) => {
   app.decorate("config", config);
 
   app.after((err) => {

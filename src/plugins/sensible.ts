@@ -1,5 +1,5 @@
-import fastify, { FastifyInstance, FastifyPluginAsync } from "fastify";
 import sensible from "@fastify/sensible";
+import { FastifyInstance, FastifyPluginAsync } from "fastify";
 
 const sensiblePlugin: FastifyPluginAsync = async (app: FastifyInstance) => {
   app.register(sensible, {

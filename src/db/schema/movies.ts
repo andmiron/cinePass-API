@@ -9,7 +9,9 @@ export const movies = pgTable("movies", {
   duration: integer("duration").notNull(),
   posterUrl: text("poster_url").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .$onUpdate(() => new Date())
+    .defaultNow(),
 });
 
 export const genres = pgTable("genres", {

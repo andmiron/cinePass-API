@@ -23,7 +23,9 @@ export const showtimes = pgTable("showtimes", {
   endTime: timestamp("end_time").notNull(),
   price: integer("price").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .$onUpdate(() => new Date())
+    .defaultNow(),
 });
 
 export const showtimesRelations = relations(showtimes, ({ one, many }) => ({

@@ -24,7 +24,9 @@ export const reservations = pgTable("reservations", {
   totalPrice: decimal("total_price", { precision: 10, scale: 2 }).notNull(),
   status: text("status").notNull().default("active"),
   createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .$onUpdate(() => new Date())
+    .defaultNow(),
 });
 
 export const reservationsRelations = relations(reservations, ({ one }) => ({

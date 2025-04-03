@@ -1,7 +1,10 @@
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import { FastifyPluginAsync } from "fastify";
-import { jsonSchemaTransform } from "fastify-type-provider-zod";
+import {
+  createJsonSchemaTransformObject,
+  jsonSchemaTransform,
+} from "fastify-type-provider-zod";
 
 const swaggerPlugin: FastifyPluginAsync = async (app) => {
   app.register(fastifySwagger, {
@@ -21,6 +24,9 @@ const swaggerPlugin: FastifyPluginAsync = async (app) => {
       ],
     },
     transform: jsonSchemaTransform,
+    transformObject: createJsonSchemaTransformObject({
+      schemas: {},
+    }),
   });
 
   app.register(fastifySwaggerUi, {
