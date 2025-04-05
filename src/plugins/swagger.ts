@@ -1,3 +1,4 @@
+import { userRegisterSchema } from "@/routes/auth/register";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import { FastifyPluginAsync } from "fastify";
@@ -25,7 +26,9 @@ const swaggerPlugin: FastifyPluginAsync = async (app) => {
     },
     transform: jsonSchemaTransform,
     transformObject: createJsonSchemaTransformObject({
-      schemas: {},
+      schemas: {
+        RegisterUser: userRegisterSchema,
+      },
     }),
   });
 

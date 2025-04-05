@@ -8,19 +8,31 @@ import { users } from "@/db/schema/users";
 
 const userRegisterSchema = z.object({
   email: z
-    .string()
-    .email()
+    .string({
+      required_error: "Email is required",
+    })
+    .email({
+      message: "Invalid email address",
+    })
     .transform((email) => email.toLowerCase()),
-  password: z.string().min(6),
+  password: z
+    .string({
+      required_error: "Password is required",
+    })
+    .min(6, {
+      message: "Password must be at least 6 characters long",
+    }),
 });
 
-const userRegisterResponseSchema = z.object({
-  success: z.boolean(),
-  message: z.string(),
-  data: z.object({
-    user: createSelectSchema(users).pick({ id: true, email: true }),
-  }),
-});
+const userRegisterResponseSchema = z
+  .object({
+    success: z.boolean(),
+    message: z.string(),
+    data: z.object({
+      user: createSelectSchema(users).pick({ id: true, email: true }),
+    }),
+  })
+  .describe("Success user registration response");
 
 type UserRegisterSchema = z.infer<typeof userRegisterSchema>;
 type UserRegisterResponseSchema = z.infer<typeof userRegisterResponseSchema>;
@@ -30,12 +42,11 @@ const registerRoute: FastifyPluginAsyncZod = async (app: FastifyInstance) => {
     "/register",
     {
       schema: {
-        tags: ["auth", "users"],
+        tags: ["auth"],
         summary: "New user registration route",
         body: userRegisterSchema,
         response: {
           201: userRegisterResponseSchema,
-          "4xx": { $ref: "HttpError" },
         },
       },
     },
