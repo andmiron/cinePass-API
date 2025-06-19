@@ -2,16 +2,9 @@ import sensible from "@fastify/sensible";
 import { FastifyInstance, FastifyPluginAsync } from "fastify";
 
 const sensiblePlugin: FastifyPluginAsync = async (app: FastifyInstance) => {
-  app.register(sensible, {
-    sharedSchemaId: "HttpError",
-  });
+  app.register(sensible);
 
-  app.after((err) => {
-    if (err) {
-      app.log.error(err);
-    }
-    app.log.info("Sensible plugin loaded");
-  });
+  app.after(() => app.log.info("Plugin loaded: sensible"));
 };
 
 export default sensiblePlugin;

@@ -16,12 +16,7 @@ const errorHandler: FastifyPluginAsync = async (app: FastifyInstance) => {
     });
   });
 
-  app.after((err) => {
-    if (err) {
-      app.log.error(err);
-    }
-    app.log.info("Error handler plugin loaded");
-  });
+  app.after(() => app.log.info("Plugin loaded: error handler"));
 };
 
 export default errorHandler;

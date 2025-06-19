@@ -1,15 +1,17 @@
-import config from "@/config/app.config";
-import { FastifyInstance, FastifyPluginAsync } from "fastify";
+import parsedConfig from "../config/app.config";
+import {
+  FastifyInstance,
+  FastifyPluginAsync,
+  FastifyPluginOptions,
+} from "fastify";
 
-const configPlugin: FastifyPluginAsync = async (app: FastifyInstance) => {
-  app.decorate("config", config);
+const configPlugin: FastifyPluginAsync = async (
+  app: FastifyInstance,
+  opts: FastifyPluginOptions
+) => {
+  app.decorate("config", parsedConfig);
 
-  app.after((err) => {
-    if (err) {
-      app.log.error(err);
-    }
-    app.log.info("Config plugin loaded");
-  });
+  app.after(() => app.log.info("Plugin loaded: config"));
 };
 
 export default configPlugin;

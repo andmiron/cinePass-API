@@ -1,8 +1,16 @@
-import { FastifyInstance, FastifyPluginAsync } from "fastify";
-import { setupDatabase } from "@/db";
+import {
+  FastifyInstance,
+  FastifyPluginAsync,
+  FastifyPluginOptions,
+} from "fastify";
+import { setupDatabase } from "../db";
 
-const drizzlePlugin: FastifyPluginAsync = async (app: FastifyInstance) => {
-  const db = await setupDatabase();
+const drizzlePlugin: FastifyPluginAsync = async (
+  app: FastifyInstance,
+  opts: FastifyPluginOptions
+) => {
+  const db = setupDatabase();
+
   app.decorate("db", db);
 
   app.addHook("onClose", async (app) => {
@@ -12,7 +20,7 @@ const drizzlePlugin: FastifyPluginAsync = async (app: FastifyInstance) => {
   try {
     await app.after();
     await app.db.execute(`SELECT 1`);
-    app.log.info("Drizzle database plugin loaded");
+    app.log.info("Plugin loaded: drizzle");
   } catch (error) {
     app.log.error(error);
   }

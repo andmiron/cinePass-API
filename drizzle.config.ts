@@ -1,5 +1,5 @@
 import { defineConfig } from "drizzle-kit";
-import { getDatabaseUrl } from "@/db";
+import { getDatabaseUrl } from "./src/db";
 
 export default defineConfig({
   schema: "./src/db/schema/*.ts",

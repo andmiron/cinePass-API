@@ -4,7 +4,7 @@ import { DatabaseError } from "pg";
 import { createSelectSchema } from "drizzle-zod";
 import * as argon2 from "argon2";
 import { z } from "zod";
-import { users } from "@/db/schema/users";
+import { users } from "../../db/schema/users";
 
 const userRegisterSchema = z.object({
   email: z

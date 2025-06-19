@@ -1,11 +1,7 @@
-import { userRegisterSchema } from "@/routes/auth/register";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import { FastifyPluginAsync } from "fastify";
-import {
-  createJsonSchemaTransformObject,
-  jsonSchemaTransform,
-} from "fastify-type-provider-zod";
+import { jsonSchemaTransform } from "fastify-type-provider-zod";
 
 const swaggerPlugin: FastifyPluginAsync = async (app) => {
   app.register(fastifySwagger, {
@@ -25,11 +21,6 @@ const swaggerPlugin: FastifyPluginAsync = async (app) => {
       ],
     },
     transform: jsonSchemaTransform,
-    transformObject: createJsonSchemaTransformObject({
-      schemas: {
-        RegisterUser: userRegisterSchema,
-      },
-    }),
   });
 
   app.register(fastifySwaggerUi, {
@@ -40,12 +31,7 @@ const swaggerPlugin: FastifyPluginAsync = async (app) => {
     },
   });
 
-  app.after((err) => {
-    if (err) {
-      app.log.error(err);
-    }
-    app.log.info("Swagger plugin loaded");
-  });
+  app.after(() => app.log.info("Plugin loaded: swagger"));
 };
 
 export default swaggerPlugin;

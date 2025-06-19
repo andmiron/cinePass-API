@@ -1,11 +1,11 @@
-import Fastify, { FastifyInstance } from "fastify";
-import { join } from "node:path";
+import Fastify, { FastifyInstance, FastifyPluginOptions } from "fastify";
 import autoLoad from "@fastify/autoload";
+import { join } from "node:path";
 import {
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
-import { fastifyOptions } from "@/config/app.options";
+import { fastifyOptions } from "./config/app.options";
 import { Config } from "./config/app.config";
 import { DB } from "./db";
 
@@ -15,19 +15,19 @@ export default async function build(): Promise<FastifyInstance> {
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
 
-  app.register(autoLoad, {
-    dir: join(__dirname, "plugins"),
-    encapsulate: false,
-  });
-  await app.after();
-  app.log.warn("Plugins loaded");
+  app
+    .register(autoLoad, {
+      dir: join(__dirname, "plugins"),
+      encapsulate: false,
+    })
+    .after(() => app.log.warn("All plugins have been loaded"));
 
-  app.register(autoLoad, {
-    dir: join(__dirname, "routes"),
-    options: { prefix: "/api" },
-  });
-  await app.after();
-  app.log.warn("Routes loaded");
+  app
+    .register(autoLoad, {
+      dir: join(__dirname, "routes"),
+      options: { prefix: "/api" },
+    })
+    .after(() => app.log.warn("All routes have been loaded"));
 
   return app;
 }

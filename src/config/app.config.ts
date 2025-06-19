@@ -14,10 +14,10 @@ const configSchema = z.object({
   COOKIE_SECRET: z.string(),
 });
 
-const config = configSchema.parse(process.env);
+const parsedConfig = configSchema.parse(process.env);
 
 type Config = z.infer<typeof configSchema>;
 
-export default config;
+export default parsedConfig;
 
 export { configSchema, type Config };

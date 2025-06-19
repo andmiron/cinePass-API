@@ -1,9 +1,9 @@
 import { FastifyInstance } from "fastify";
-import config from "@/config/app.config";
-import build from "@/server";
+import parsedConfig from "./config/app.config";
+import build from "./server";
 
 async function main() {
-  const { PORT, HOST } = config;
+  const { PORT, HOST } = parsedConfig;
 
   const server: FastifyInstance = await build();
 
